@@ -21,7 +21,7 @@ export default {
     commit('filteredCollection', filteredCollection)
     dispatch('paginatedCollection')
   },
-  fetchCollection: ({ state, commit, dispatch, rootGetters }) => {
+  fetchCollection: ({ state, commit, dispatch }) => {
     commit('fetching', true)
 
     // Fetches either active or inactive users
@@ -51,7 +51,7 @@ export default {
 
   // fetchModel
   // Fetches an individual model from the server
-  fetchModel ({ commit, rootGetters }, projectId) {
+  fetchModel ({ commit }, projectId) {
     commit('fetching', true)
     $GET(`${API_ROOT}/${projectId}`, { token: rootGetters['auth/token'] })
     .then((project) => {
@@ -67,7 +67,7 @@ export default {
 
   // fetchContributors
   // Fetches the contributors to a specific project
-  fetchContributors ({ state, commit, rootGetters }) {
+  fetchContributors ({ state, commit }) {
     let projectId = state.model._id
     commit('fetchingContributors', true)
     $GET(`/api/projects/${projectId}/authors`, { token: rootGetters['auth/token'] })
@@ -90,7 +90,7 @@ export default {
   },
 
   // createProject
-  create ({ state, commit, rootGetters }) {
+  create ({ state, commit }) {
     // Assembles body for new Project API request
     let { name, description, githubUsername, githubProjectName, tech, active, repositories, repositoryType, photos } = state.newModel
     let body = { name, description, githubUsername, githubProjectName, tech, active, repositories, repositoryType, photos }
@@ -119,7 +119,7 @@ export default {
   },
 
   // fetchMyProjects
-  fetchMyProjects ({ commit, rootGetters }) {
+  fetchMyProjects ({ commit }) {
     $GET('/api/projects/mine', { token: rootGetters['auth/token'] })
     .then((response) => {
       commit('myProjects', response)
@@ -131,7 +131,7 @@ export default {
   },
 
   // fetchMenteeProjects
-  fetchMenteeProjects ({ commit, rootGetters }) {
+  fetchMenteeProjects ({ commit }) {
     $GET('/api/projects/mentees', { token: rootGetters['auth/token'] })
     .then((response) => {
       commit('menteeProjects', response)
@@ -144,7 +144,7 @@ export default {
 
   // fetchFavoriteProjects
   // TODO - this should be a user action
-  fetchFavoriteProjects ({ commit, rootGetters }) {
+  fetchFavoriteProjects ({ commit }) {
     let currentUser = rootGetters['auth/current_user']
 
     $GET(`/api/users/${currentUser._id}/favoriteProjects`, { token: rootGetters['auth/token'] })
@@ -158,7 +158,7 @@ export default {
   },
 
   // toggleFavorite
-  toggleFavorite ({ state, commit, rootGetters }, project) {
+  toggleFavorite ({ state, commit }, project) {
     console.log('TOGGLE FAVORITE')
 
     function isFavorite () {
@@ -200,7 +200,7 @@ export default {
 
   // markDefault
   // Marks the project as a default project (requires admin status)
-  markDefault ({ state, commit, rootGetters }) {
+  markDefault ({ state, commit }) {
     // NOTE: can use state.model for actions such as these since we are in the context of one model
     $PUT(`api/projects/${state.model._id}/markdefault`, { token: rootGetters['auth/token'] })
     .then((response) => {
@@ -213,7 +213,7 @@ export default {
 
   // unmarkDefault
   // Unmarks the project as a default project (requires admin status)
-  unmarkDefault ({ state, commit, rootGetters }) {
+  unmarkDefault ({ state, commit }) {
     $PUT(`api/projects/${state.model._id}/unmarkdefault`, { token: rootGetters['auth/token'] })
     .then((response) => {
       commit('projectDefault', false)
@@ -225,7 +225,7 @@ export default {
 
   // markActive
   // Marks the project as an active project
-  markActive ({ state, commit, dispatch, rootGetters }) {
+  markActive ({ state, commit, dispatch }) {
     $PUT(`api/projects/${state.model._id}/markActive`, { token: rootGetters['auth/token'] })
     .then((response) => {
       commit('projectActive', true)
@@ -237,7 +237,7 @@ export default {
 
   // markPast
   // Marks the project as a past project (inactive)
-  markPast ({ state, commit, dispatch, rootGetters }) {
+  markPast ({ state, commit, dispatch }) {
     $PUT(`api/projects/${state.model._id}/markPast`, { token: rootGetters['auth/token'] })
     .then((response) => {
       commit('projectActive', false)

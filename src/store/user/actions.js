@@ -32,7 +32,7 @@ export default {
 
     commit('filteredCollection', filteredCollection)
   },
-  fetchCollection: ({ dispatch, commit, state, rootGetters }) => {
+  fetchCollection: ({ dispatch, commit, state }) => {
     commit('fetching', true)
 
     // Fetches either active or inactive users
@@ -56,7 +56,7 @@ export default {
 
   // fetchAdminCollection
   // Admin-only user collection for /admin/users
-  fetchAdminCollection: ({ commit, state, rootGetters }) => {
+  fetchAdminCollection: ({ commit, state }) => {
     commit('fetching', true)
 
     // Fetches either active or inactive users
@@ -76,7 +76,7 @@ export default {
 
   // fetchUser
   // Fetches an individual user from the server
-  fetchUser ({ store, commit, rootGetters }, userID) {
+  fetchUser ({ store, commit }, userID) {
     commit('fetching', true)
     $GET(`/api/users/${userID}`, { token: rootGetters['auth/token'] })
     .then((user) => {
@@ -92,7 +92,7 @@ export default {
   // setUserRole
   // Updates an individual User's role
   // @permissions Admin
-  setUserRole ({ commit, rootGetters }, user) {
+  setUserRole ({ commit }, user) {
     commit('fetching', true)
 
     // POST /api/users/:id/role
@@ -113,7 +113,7 @@ export default {
 
   // activateUser
   // Activates an individual User
-  activateUser ({ commit, rootGetters }, user) {
+  activateUser ({ commit }, user) {
     commit('fetching', true)
 
     // PUT /api/users/:id/activate
@@ -134,7 +134,7 @@ export default {
 
   // deactivateUser
   // Deactivates an individual User
-  deactivateUser ({ commit, rootGetters }, user) {
+  deactivateUser ({ commit }, user) {
     commit('fetching', true)
 
     // PUT /api/users/:id/activate

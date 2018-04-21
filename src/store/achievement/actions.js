@@ -29,9 +29,8 @@ export default {
       throw err // TODO - better error handling
     })
   },
-  create ({ commit, rootGetters }) {
+  create ({ commit }) {
     $POST(API_ROOT, {
-      token: rootGetters['auth/token'],
       body: {
         title: 'sample-achievement',
         description: 'test123',
@@ -47,9 +46,8 @@ export default {
       throw err
     })
   },
-  update ({ commit, rootGetters }, achievementId) {
+  update ({ commit }, achievementId) {
     $PUT(API_ROOT + '/' + achievementId, {
-      token: rootGetters['auth/token'],
       body: {
         title: 'achievement update',
         description: 'sample achievement update'
@@ -65,10 +63,8 @@ export default {
       throw err
     })
   },
-  destroy ({ commit, rootGetters }, achievementId) {
-    $DEL(API_ROOT + '/' + achievementId, {
-      token: rootGetters['auth/token']
-    })
+  destroy ({ commit }, achievementId) {
+    $DEL(API_ROOT + '/' + achievementId)
     .then((json) => {
       console.log('Successfully deleted.')
       console.log(json)

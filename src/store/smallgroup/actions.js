@@ -9,7 +9,7 @@ export default {
   resetNewModel: ({ commit }) => {
     return commit('newModel', NEW_SMALL_GROUP)
   },
-  fetchCollection: ({ state, commit, dispatch, rootGetters }) => {
+  fetchCollection: ({ state, commit, dispatch }) => {
     commit('fetching', true)
 
     // Fetches Collection from the server
@@ -25,7 +25,7 @@ export default {
   },
 
   // create SmallGroup
-  create ({ commit, state, rootGetters }) {
+  create ({ commit, state }) {
     commit('fetching', true)
 
     // Fetches Collection from the server

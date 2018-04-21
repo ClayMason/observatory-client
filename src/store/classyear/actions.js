@@ -7,7 +7,7 @@ import { $POST } from '@/store/lib/helpers'
 // functions that causes side effects and can involve asynchronous operations.
 export default {
   // POSTs a new attendance code
-  generateAttendanceCode ({ state, commit, rootGetters }) {
+  generateAttendanceCode ({ state, commit }) {
     // Assembles body for new ClassYear API request
     let api = API_ROOT + '/daycode'
 
@@ -28,7 +28,7 @@ export default {
     })
   },
   // POSTs a new bonus session attendance code
-  generateBonusCode ({ state, commit, rootGetters }) {
+  generateBonusCode ({ state, commit }) {
     // Assembles body for new ClassYear API request
     let api = API_ROOT + '/daycode'
 

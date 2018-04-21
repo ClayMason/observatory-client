@@ -1,3 +1,4 @@
+import store from '@/store'
 
 // REST verbs
 const GET = 'get'
@@ -9,6 +10,12 @@ const DELETE = 'delete'
 const REQUEST_HEADERS = {
   'Content-Type': 'application/json'
 }
+
+function buildRequest () {
+  let token = store.getters['auth/token']
+  if (token) { requestHeaders['Authorization'] = `Bearer ${token}` }
+}
+
 
 // Defines request
 function buildRequest (verb, options) {

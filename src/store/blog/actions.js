@@ -31,7 +31,7 @@ export default {
       throw err
     })
   },
-  create ({ commit, rootGetters }) {
+  create ({ commit }) {
     $POST(API_ROOT, {
       token: rootGetters['auth/token'],
       body: {
@@ -53,7 +53,7 @@ export default {
   resetNewModel ({ commit }) {
     commit('newModel')
   },
-  update ({ commit, rootGetters }, blogModel) {
+  update ({ commit }, blogModel) {
     console.log('UPDATE BLOG POST')
 
     $PUT(API_ROOT + '/' + blogModel._id, {
@@ -68,7 +68,7 @@ export default {
       throw err
     })
   },
-  destroy ({ commit, rootGetters }, postID) {
+  destroy ({ commit }, postID) {
     commit('destroying', true)
     $DEL(`${API_ROOT}/${postID}`, { token: rootGetters['auth/token'] })
     .then((project) => {

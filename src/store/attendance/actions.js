@@ -10,12 +10,12 @@ export default {
   ...PAGINATION_ACTIONS,
   ...FILTER_ACTIONS,
   // Fetches the attendance collection for this user
-  fetchCollection: ({ commit, rootGetters }) => {
+  fetchCollection: ({ commit }) => {
     commit('fetching', true)
 
     let api = API_ROOT + '/present/me'
 
-    $GET(api, { token: rootGetters['auth/token'] })
+    $GET(api)
     .then((json) => {
       commit('collection', json)
       commit('fetching', false)
