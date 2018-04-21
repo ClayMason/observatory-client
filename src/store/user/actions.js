@@ -31,6 +31,7 @@ export default {
     .value()
 
     commit('filteredCollection', filteredCollection)
+    dispatch('paginatedCollection')
   },
   fetchCollection: ({ dispatch, commit, state }) => {
     commit('fetching', true)
