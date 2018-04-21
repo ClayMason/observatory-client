@@ -13,7 +13,6 @@ export default {
 
     commit('fetching', true)
     $POST(api, {
-      token: rootGetters['auth/token'],
       body: {
         bonusDay: false
       }
@@ -34,7 +33,6 @@ export default {
 
     commit('fetching', true)
     $POST(api, {
-      token: rootGetters['auth/token'],
       body: {
         bonusDay: true
       }

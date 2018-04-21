@@ -68,7 +68,7 @@ export default {
   },
   destroy ({ commit }, postID) {
     commit('destroying', true)
-    $DEL(`${API_ROOT}/${postID}`, { token: rootGetters['auth/token'] })
+    $DEL(`${API_ROOT}/${postID}`)
     .then((project) => {
       commit('destroying', false)
     })
