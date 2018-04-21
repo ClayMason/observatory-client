@@ -42,7 +42,7 @@ export default {
     }
 
     // Fetches Collection from the server
-    $GET(apiRoute, { token: rootGetters['auth/token'] })
+    $GET(apiRoute)
     .then((json) => {
       commit('fetching', false)
       commit('collection', json)
@@ -63,7 +63,7 @@ export default {
     let apiRoute = API_ROOT + '/adminstats'
 
     // Fetches Collection from the server
-    $GET(apiRoute, { token: rootGetters['auth/token'] })
+    $GET(apiRoute)
     .then((json) => {
       commit('fetching', false)
       commit('collection', json)
@@ -78,7 +78,7 @@ export default {
   // Fetches an individual user from the server
   fetchUser ({ store, commit }, userID) {
     commit('fetching', true)
-    $GET(`/api/users/${userID}`, { token: rootGetters['auth/token'] })
+    $GET(`/api/users/${userID}`)
     .then((user) => {
       commit('model', user)
       commit('fetching', false)
@@ -97,7 +97,6 @@ export default {
 
     // POST /api/users/:id/role
     $POST(API_ROOT + '/' + user._id + '/role', {
-      token: rootGetters['auth/token'],
       body: { role: user.role }
     })
     .then((json) => {
@@ -117,9 +116,7 @@ export default {
     commit('fetching', true)
 
     // PUT /api/users/:id/activate
-    $PUT(API_ROOT + '/' + user._id + '/activate', {
-      token: rootGetters['auth/token']
-    })
+    $PUT(API_ROOT + '/' + user._id + '/activate')
     .then((json) => {
       user.active = true
       commit('notification/add', ACTIVATE_NOTIFICATIONS.SUCCESS, { root: true })
@@ -138,9 +135,7 @@ export default {
     commit('fetching', true)
 
     // PUT /api/users/:id/activate
-    $PUT(API_ROOT + '/' + user._id + '/deactivate', {
-      token: rootGetters['auth/token']
-    })
+    $PUT(API_ROOT + '/' + user._id + '/deactivate')
     .then((json) => {
       user.active = false
       commit('notification/add', DEACTIVATE_NOTIFICATIONS.SUCCESS, { root: true })

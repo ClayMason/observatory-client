@@ -13,7 +13,7 @@ export default {
     commit('fetching', true)
 
     // Fetches Collection from the server
-    $GET(API_ROOT, { token: rootGetters['auth/token'] })
+    $GET(API_ROOT)
     .then((json) => {
       commit('collection', json)
       commit('fetching', false)
@@ -30,7 +30,6 @@ export default {
 
     // Fetches Collection from the server
     $POST(API_ROOT, {
-      token: rootGetters['auth/token'],
       body: state.newModel
     })
     .then((json) => {
