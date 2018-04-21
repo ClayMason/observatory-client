@@ -6,6 +6,7 @@
         <div class="card-body">
           <h4 class="card-title" v-html="compileMarkdown(m.title)"></h4>
           <p class="card-text" v-html="compileMarkdown(m.content)"></p>
+          <pre class="bg-dark text-light">{{ m }}</pre>
         </div>
       </div>
     </div>

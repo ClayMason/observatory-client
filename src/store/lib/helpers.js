@@ -11,19 +11,14 @@ const REQUEST_HEADERS = {
   'Content-Type': 'application/json'
 }
 
-function buildRequest () {
-  let token = store.getters['auth/token']
-  if (token) { requestHeaders['Authorization'] = `Bearer ${token}` }
-}
-
-
 // Defines request
 function buildRequest (verb, options) {
   // Defines request headers
   let requestHeaders = { ...REQUEST_HEADERS }
 
   // Adds `Authorization` header to request if token parameter is defined
-  if (options.token) requestHeaders['Authorization'] = `Bearer ${options.token}`
+  let token = store.getters['auth/token']
+  if (token) { requestHeaders['Authorization'] = `Bearer ${token}` }
 
   // Returns request object
   let req = { method: verb, headers: new Headers(requestHeaders) }
