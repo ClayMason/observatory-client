@@ -53,7 +53,7 @@ export default {
   // Fetches an individual model from the server
   fetchModel ({ commit }, projectId) {
     commit('fetching', true)
-    $GET(`${API_ROOT}/${projectId}`, { token: rootGetters['auth/token'] })
+    $GET(`${API_ROOT}/${projectId}`)
     .then((project) => {
       commit('projectDefault', project.markedDefault)
       commit('model', project)
@@ -70,7 +70,7 @@ export default {
   fetchContributors ({ state, commit }) {
     let projectId = state.model._id
     commit('fetchingContributors', true)
-    $GET(`/api/projects/${projectId}/authors`, { token: rootGetters['auth/token'] })
+    $GET(`/api/projects/${projectId}/authors`)
     .then((project) => {
       commit('contributors', project)
       commit('fetchingContributors', false)
@@ -144,7 +144,7 @@ export default {
 
   // fetchFavoriteProjects
   // TODO - this should be a user action
-  fetchFavoriteProjects ({ commit }) {
+  fetchFavoriteProjects ({ commit, rootGetters }) {
     let currentUser = rootGetters['auth/current_user']
 
     $GET(`/api/users/${currentUser._id}/favoriteProjects`)
@@ -158,7 +158,7 @@ export default {
   },
 
   // toggleFavorite
-  toggleFavorite ({ state, commit }, project) {
+  toggleFavorite ({ state, commit, rootGetters }, project) {
     console.log('TOGGLE FAVORITE')
 
     function isFavorite () {
