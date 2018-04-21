@@ -33,7 +33,6 @@ export default {
   },
   create ({ commit }) {
     $POST(API_ROOT, {
-      token: rootGetters['auth/token'],
       body: {
         title: 'sample-blog-create',
         description: 'sample123',
@@ -57,8 +56,7 @@ export default {
     console.log('UPDATE BLOG POST')
 
     $PUT(API_ROOT + '/' + blogModel._id, {
-      body: blogModel,
-      token: rootGetters['auth/token']
+      body: blogModel
     })
     .then((response) => {
       console.log('RESPONSE')
