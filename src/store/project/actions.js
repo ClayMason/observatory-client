@@ -31,7 +31,7 @@ export default {
     }
 
     // Fetches Collection from the server
-    $GET(apiRoute, { token: rootGetters['auth/token'] })
+    $GET(apiRoute)
     .then((json) => {
       commit('collection', json)
       dispatch('filteredCollection')
@@ -96,7 +96,7 @@ export default {
     let body = { name, description, githubUsername, githubProjectName, tech, active, repositories, repositoryType, photos }
 
     commit('fetching', true)
-    $POST(`/api/projects`, { token: rootGetters['auth/token'], body: body })
+    $POST(`/api/projects`, { body: body })
     .then((project) => {
       commit('fetching', false)
       Router.push('/projects')
@@ -120,7 +120,7 @@ export default {
 
   // fetchMyProjects
   fetchMyProjects ({ commit }) {
-    $GET('/api/projects/mine', { token: rootGetters['auth/token'] })
+    $GET('/api/projects/mine')
     .then((response) => {
       commit('myProjects', response)
     })
@@ -132,7 +132,7 @@ export default {
 
   // fetchMenteeProjects
   fetchMenteeProjects ({ commit }) {
-    $GET('/api/projects/mentees', { token: rootGetters['auth/token'] })
+    $GET('/api/projects/mentees')
     .then((response) => {
       commit('menteeProjects', response)
     })
@@ -147,7 +147,7 @@ export default {
   fetchFavoriteProjects ({ commit }) {
     let currentUser = rootGetters['auth/current_user']
 
-    $GET(`/api/users/${currentUser._id}/favoriteProjects`, { token: rootGetters['auth/token'] })
+    $GET(`/api/users/${currentUser._id}/favoriteProjects`)
     .then((response) => {
       commit('favoriteProjects', response)
     })
@@ -169,7 +169,7 @@ export default {
 
     // ADD favorite
     if (isFavorite()) {
-      $PUT(`/api/users/${currentUser._id}/favorite/${project._id}`, { token: rootGetters['auth/token'] })
+      $PUT(`/api/users/${currentUser._id}/favorite/${project._id}`)
       .then((response) => {
         console.log('ADDED FAVORITE')
       })
@@ -179,7 +179,7 @@ export default {
       })
     // REMOVE favorite
     } else {
-      $DEL(`/api/users/${currentUser._id}/favorite/${project._id}`, { token: rootGetters['auth/token'] })
+      $DEL(`/api/users/${currentUser._id}/favorite/${project._id}`)
       .then((response) => {
         console.log('REMOVED FAVORITE')
       })
@@ -202,7 +202,7 @@ export default {
   // Marks the project as a default project (requires admin status)
   markDefault ({ state, commit }) {
     // NOTE: can use state.model for actions such as these since we are in the context of one model
-    $PUT(`api/projects/${state.model._id}/markdefault`, { token: rootGetters['auth/token'] })
+    $PUT(`api/projects/${state.model._id}/markdefault`)
     .then((response) => {
       commit('projectDefault', true)
     })
@@ -214,7 +214,7 @@ export default {
   // unmarkDefault
   // Unmarks the project as a default project (requires admin status)
   unmarkDefault ({ state, commit }) {
-    $PUT(`api/projects/${state.model._id}/unmarkdefault`, { token: rootGetters['auth/token'] })
+    $PUT(`api/projects/${state.model._id}/unmarkdefault`)
     .then((response) => {
       commit('projectDefault', false)
     })
@@ -226,7 +226,7 @@ export default {
   // markActive
   // Marks the project as an active project
   markActive ({ state, commit, dispatch }) {
-    $PUT(`api/projects/${state.model._id}/markActive`, { token: rootGetters['auth/token'] })
+    $PUT(`api/projects/${state.model._id}/markActive`)
     .then((response) => {
       commit('projectActive', true)
     })
@@ -238,7 +238,7 @@ export default {
   // markPast
   // Marks the project as a past project (inactive)
   markPast ({ state, commit, dispatch }) {
-    $PUT(`api/projects/${state.model._id}/markPast`, { token: rootGetters['auth/token'] })
+    $PUT(`api/projects/${state.model._id}/markPast`)
     .then((response) => {
       commit('projectActive', false)
     })
